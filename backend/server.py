@@ -400,7 +400,7 @@ async def update_order_status(order_id: str, status: OrderStatus, current_user: 
     return {"message": "Order status updated"}
 
 @api_router.post("/orders/{order_id}/assign-driver")
-async def assign_driver(order_id: str, current_user: User = security):
+async def assign_driver(order_id: str, current_user: User = Depends(get_current_user)):
     if current_user.user_type != UserType.DRIVER:
         raise HTTPException(status_code=403, detail="Only drivers can accept orders")
     
