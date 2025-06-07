@@ -349,7 +349,7 @@ async def create_order(order: OrderCreate, current_user: User = Depends(get_curr
     }
 
 @api_router.get("/orders", response_model=List[Order])
-async def get_orders(current_user: User = security):
+async def get_orders(current_user: User = Depends(get_current_user)):
     if current_user.user_type == UserType.CUSTOMER:
         orders = await db.orders.find({"customer_id": current_user.id}).to_list(100)
     elif current_user.user_type == UserType.DRIVER:
