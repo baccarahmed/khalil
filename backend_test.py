@@ -97,6 +97,8 @@ class FoodDeliveryAPITest(unittest.TestCase):
         }
         response = requests.post(f"{BASE_URL}/auth/login", json=login_data)
         self.assertEqual(response.status_code, 200, f"Customer login failed: {response.text}")
+        data = response.json()
+        self.tokens["customer"] = data["token"]  # Update token
         print("✅ Customer login successful")
         
         # Login as driver
@@ -106,6 +108,8 @@ class FoodDeliveryAPITest(unittest.TestCase):
         }
         response = requests.post(f"{BASE_URL}/auth/login", json=login_data)
         self.assertEqual(response.status_code, 200, f"Driver login failed: {response.text}")
+        data = response.json()
+        self.tokens["driver"] = data["token"]  # Update token
         print("✅ Driver login successful")
         
         # Login as restaurant owner
@@ -115,6 +119,8 @@ class FoodDeliveryAPITest(unittest.TestCase):
         }
         response = requests.post(f"{BASE_URL}/auth/login", json=login_data)
         self.assertEqual(response.status_code, 200, f"Restaurant owner login failed: {response.text}")
+        data = response.json()
+        self.tokens["restaurant"] = data["token"]  # Update token
         print("✅ Restaurant owner login successful")
         
         # Login as admin
@@ -124,6 +130,8 @@ class FoodDeliveryAPITest(unittest.TestCase):
         }
         response = requests.post(f"{BASE_URL}/auth/login", json=login_data)
         self.assertEqual(response.status_code, 200, f"Admin login failed: {response.text}")
+        data = response.json()
+        self.tokens["admin"] = data["token"]  # Update token
         print("✅ Admin login successful")
 
     def test_03_create_restaurant(self):
