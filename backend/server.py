@@ -448,7 +448,7 @@ async def update_driver_location(location: Dict[str, float], current_user: User 
 
 # Analytics endpoint
 @api_router.get("/analytics")
-async def get_analytics(current_user: User = security):
+async def get_analytics(current_user: User = Depends(get_current_user)):
     if current_user.user_type != UserType.ADMIN:
         raise HTTPException(status_code=403, detail="Admin access required")
     
