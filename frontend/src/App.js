@@ -807,7 +807,7 @@ const AdminDashboard = () => {
   );
 };
 
-const App = () => {
+const AppContent = () => {
   const { user } = React.useContext(UserContext);
 
   const renderDashboard = () => {
@@ -828,11 +828,17 @@ const App = () => {
   };
 
   return (
+    <div className="min-h-screen bg-gray-100">
+      <Navbar />
+      {renderDashboard()}
+    </div>
+  );
+};
+
+const App = () => {
+  return (
     <UserProvider>
-      <div className="min-h-screen bg-gray-100">
-        <Navbar />
-        {renderDashboard()}
-      </div>
+      <AppContent />
     </UserProvider>
   );
 };
