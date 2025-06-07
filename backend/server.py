@@ -207,7 +207,7 @@ def verify_jwt_token(token: str):
     except jwt.InvalidTokenError:
         raise HTTPException(status_code=401, detail="Invalid token")
 
-async def get_current_user(credentials: HTTPAuthorizationCredentials = security):
+async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
     payload = verify_jwt_token(credentials.credentials)
     user = await db.users.find_one({"id": payload["user_id"]})
     if not user:
