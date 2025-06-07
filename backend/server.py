@@ -263,7 +263,7 @@ async def login_user(login_data: UserLogin):
 
 # Restaurant endpoints
 @api_router.post("/restaurants")
-async def create_restaurant(restaurant: RestaurantCreate, current_user: User = security):
+async def create_restaurant(restaurant: RestaurantCreate, current_user: User = Depends(get_current_user)):
     if current_user.user_type != UserType.RESTAURANT:
         raise HTTPException(status_code=403, detail="Only restaurant users can create restaurants")
     
