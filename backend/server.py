@@ -424,7 +424,7 @@ async def assign_driver(order_id: str, current_user: User = Depends(get_current_
 
 # Driver location update
 @api_router.post("/drivers/location")
-async def update_driver_location(location: Dict[str, float], current_user: User = security):
+async def update_driver_location(location: Dict[str, float], current_user: User = Depends(get_current_user)):
     if current_user.user_type != UserType.DRIVER:
         raise HTTPException(status_code=403, detail="Only drivers can update location")
     
