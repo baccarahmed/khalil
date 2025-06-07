@@ -364,7 +364,7 @@ async def get_orders(current_user: User = Depends(get_current_user)):
     return [Order(**order) for order in orders]
 
 @api_router.put("/orders/{order_id}/status")
-async def update_order_status(order_id: str, status: OrderStatus, current_user: User = security):
+async def update_order_status(order_id: str, status: OrderStatus, current_user: User = Depends(get_current_user)):
     order = await db.orders.find_one({"id": order_id})
     if not order:
         raise HTTPException(status_code=404, detail="Order not found")
