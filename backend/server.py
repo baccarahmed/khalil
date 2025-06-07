@@ -285,7 +285,7 @@ async def get_restaurant(restaurant_id: str):
 
 # Menu endpoints
 @api_router.post("/restaurants/{restaurant_id}/menu")
-async def add_menu_item(restaurant_id: str, item: MenuItemCreate, current_user: User = security):
+async def add_menu_item(restaurant_id: str, item: MenuItemCreate, current_user: User = Depends(get_current_user)):
     if current_user.user_type != UserType.RESTAURANT:
         raise HTTPException(status_code=403, detail="Only restaurant users can add menu items")
     
