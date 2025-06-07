@@ -304,7 +304,7 @@ async def get_menu(restaurant_id: str):
 
 # Order endpoints
 @api_router.post("/orders")
-async def create_order(order: OrderCreate, current_user: User = security):
+async def create_order(order: OrderCreate, current_user: User = Depends(get_current_user)):
     if current_user.user_type != UserType.CUSTOMER:
         raise HTTPException(status_code=403, detail="Only customers can create orders")
     
